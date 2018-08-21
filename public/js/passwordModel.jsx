@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 //模态框，密码框
 class Codectncomponent extends React.Component{
     constructor(props){
@@ -59,7 +60,8 @@ class Codectncomponent extends React.Component{
         console.log(this.state.form.userName, this.state.form.password);
     }
     render(){
-        return( 
+        return(
+        <div className = "container">
         <div className = "code-ctn" style = {{display : this.state.display ? 'block' : 'none'}} >
             <div className = "title-ctn">
                 <span>不要搁浅噢</span>
@@ -75,6 +77,7 @@ class Codectncomponent extends React.Component{
                 <input type="button" className="ipt-btn" onClick = {(e)=>{this._submitHandle(e)}} value = "提交"/>
                 <span className= "ipt-close" onClick = {(e)=>{this._closeHandle(e)}}>关闭</span>
             </div>
+        </div>
         </div>
         )
     }
