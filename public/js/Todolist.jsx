@@ -2,7 +2,7 @@ import React from 'react';
 import Btncomponent from './btn.jsx';
 import Immutabel from 'immutable';
 import moment from 'moment';
-
+import '../less/index.less';
 class Todolistctncomponent extends React.Component{
     constructor(props){
         super(props);
@@ -85,7 +85,7 @@ class Todolistctncomponent extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div className = "drag-ctn">
                 {
                     this.state.itemList.map((item,idx)=>{
                         return <Draglinecomponent  lineWidth = '200' name = {item.get('name')} startLeft = '40' key = {item.get('name')} idx = {idx} value = {item.get('value')} changeValue = {(value,key)=>{this.changeValue(value,key)}}/>

@@ -6,7 +6,7 @@
 
 技术栈现目前有
 
-React webpack immutable.js
+React webpack immutable.js React-router React-loadable
 
 现包括
 

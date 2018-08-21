@@ -1,21 +1,60 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Route , Link ,BrowserRouter, Switch} from 'react-router-dom';
+import Loadable from 'react-loadable';
 import './public/less/index.less';
-import  Codectncomponent  from './public/js/passwordModel.jsx';
-import  Checkboxcomponent  from './public/js/checkbox.jsx';
-import  Todolistctncomponent  from './public/js/Todolist.jsx';
+const MyLoadingComponent = ({ isLoading, error }) => {
+    // Handle the loading state
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+    // Handle the error state
+    else if (error) {
+        return <div>Sorry, there was a problem loading the page.</div>;
+    }
+    else {
+        return null;
+    }
+};
 
+const Codectncomponent = Loadable({
+    loader: () => import('./public/js/passwordModel.jsx'),
+    loading: MyLoadingComponent
+})
+const Checkboxcomponent = Loadable({
+    loader: () => import('./public/js/checkbox.jsx'),
+    loading: MyLoadingComponent
+})
+const Todolistctncomponent = Loadable({
+    loader: () => import('./public/js/Todolist.jsx'),
+    loading: MyLoadingComponent
+})
+class Demolist extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    render(){
+        return (
+            <div>
+                <h1>Demolist</h1>
+            <ul>
+                <li><Link to = "/code">code</Link></li>
+                <li><Link to = "/checkbox">checkbox</Link></li>
+                <li><Link to = "/emotionList">Emotion</Link></li>
+            </ul>
+            {this.props.children}
+            </div>
+        )
+    }
+}
 ReactDOM.render(
-    <div>
-        <div className = "container">
-            <Codectncomponent />
-        </div>
-        <div className = "checkbox-ctn">
-            <Checkboxcomponent />
-        </div>
-        <div className = "drag-ctn">
-            <Todolistctncomponent />
-        </div>
-    </div>,
+    <BrowserRouter basename = "/dist/view/index.html">
+    <Switch>
+        <Route exact path = "/" component = {Demolist} />
+        <Route path = "/code" component = {Codectncomponent}/>
+        <Route path = "/checkbox" component = {Checkboxcomponent}/>
+        <Route path = "/emotionList" component = {Todolistctncomponent} />
+    </Switch>
+    </BrowserRouter>,
     document.getElementById('reactRoot')
 )

@@ -8,12 +8,12 @@ let WEBPACK_ENV = process.env.WEBPACK_ENV || 'dev';
 const extractCSS = new ExtractTextPlugin({
     filename: 'stylesheets/[name].css',
     disable: process.env.WEBPACK_ENV === "dev",
-    ignoreOrder: true
+    ignoreOrder:true
 });
 const extractLess = new ExtractTextPlugin({
     filename: "stylesheets/[name].css",
-    disable: process.env.WEBPACK_ENV === "dev",
-    ignoreOrder: true
+    ignoreOrder:true,
+    disable: process.env.WEBPACK_ENV === "dev"
 });
 module.exports = {
     mode: "development",
@@ -28,40 +28,8 @@ module.exports = {
         chunkFilename: 'js/[name].chunk.js',
         publicPath: '/dist/'
     },
-    optimization: {
-        splitChunks: {
-            chunks: 'initial',
-            cacheGroups: {
-                vendor: {
-                    test: /node_modules\//,
-                    name: 'vendor',
-                    priority: 10,
-                    enforce: true
-                },
-                commons: {
-                    test: /public\//,
-                    name: 'public',
-                    priority: 10,
-                    enforce: true
-                }
-            }
-        },
-        runtimeChunk: {
-            name:'mainfest'
-        }
-    },
     module: {
         rules: [
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env', 'react'],
-                    }
-                }
-            },
             {
                 test: /\.css$/,
                 use: extractCSS.extract({use :['css-loader'],fallback: 'style-loader'})
@@ -80,7 +48,7 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                use: extractLess.extract(['css-loader','less-loader'],'style-loader')
+                use: extractLess.extract({use:['css-loader','less-loader'],fallback : 'style-loader'})
             }, {
                 test: /\.ejs$/,
                 loader: 'ejs-loader'
@@ -95,6 +63,19 @@ module.exports = {
                       }
                     }
                 ]
+            },
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env', 'react'],
+                        plugins: [
+                            'syntax-dynamic-import'
+                        ]
+                    }
+                }
             }
         ]
     },
