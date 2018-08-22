@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom';
 import {Route , Link ,BrowserRouter, Switch} from 'react-router-dom';
 import Loadable from 'react-loadable';
 import './public/less/index.less';
+
 const MyLoadingComponent = ({ isLoading, error }) => {
-    // Handle the loading state
     if (isLoading) {
         return <div>Loading...</div>;
     }
-    // Handle the error state
     else if (error) {
         return <div>Sorry, there was a problem loading the page.</div>;
     }
