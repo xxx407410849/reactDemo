@@ -2,7 +2,6 @@ import React from 'react';
 import Btncomponent from './btn.jsx';
 import Immutabel from 'immutable';
 import moment from 'moment';
-import '../less/index.less';
 class Todolistctncomponent extends React.Component{
     constructor(props){
         super(props);
