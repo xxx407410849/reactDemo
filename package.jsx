@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Route , Link ,BrowserRouter, Switch} from 'react-router-dom';
+import {Route , Link ,BrowserRouter, Switch ,withRouter} from 'react-router-dom';
 import Loadable from 'react-loadable';
+import Immutabel from 'immutable';
 import './public/less/index.less';
 
 const MyLoadingComponent = ({ isLoading, error }) => {
@@ -28,6 +29,32 @@ const Todolistctncomponent = Loadable({
     loader: () => import('./public/js/Todolist.jsx'),
     loading: MyLoadingComponent
 })
+
+const Breadcrumbcomponet = Loadable({
+    loader: () => import('./public/js/Breadcrumb.jsx'),
+    loading: MyLoadingComponent
+})
+
+class Breadcrumb extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    render(){
+        let Breadcrumboption = Immutabel.fromJS([{
+            name : 'Emotioncontrol',
+            link : '/emotionList',
+            state : null
+        },{
+            name : 'caculate',
+            link : '/emotionList/caculate',
+            state : null
+        }]);
+        return (
+            <Breadcrumbcomponet Itemlist = {Breadcrumboption} />
+        )
+    }
+}
+
 class Demolist extends React.Component{
     constructor(props){
         super(props);
@@ -41,19 +68,23 @@ class Demolist extends React.Component{
                 <li><Link to = "/checkbox">checkbox</Link></li>
                 <li><Link to = "/emotionList">Emotion</Link></li>
             </ul>
-            {this.props.children}
             </div>
         )
     }
 }
+
+
 ReactDOM.render(
     <BrowserRouter basename = "/dist/view/index.html">
-    <Switch>
-        <Route exact path = "/" component = {Demolist} />
-        <Route path = "/code" component = {Codectncomponent}/>
-        <Route path = "/checkbox" component = {Checkboxcomponent}/>
-        <Route path = "/emotionList" component = {Todolistctncomponent} />
-    </Switch>
+    <div>
+        <Route path = "/" component = {Demolist} />
+        <Route path = "/emotionList" component = {Breadcrumb}></Route>
+        <Switch>  
+            <Route exact path = "/code" component = {Codectncomponent}/>
+            <Route exact path = "/checkbox" component = {Checkboxcomponent}/>
+            <Route exact path = "/emotionList" component = {Todolistctncomponent} />
+        </Switch>
+    </div>
     </BrowserRouter>,
     document.getElementById('reactRoot')
 )

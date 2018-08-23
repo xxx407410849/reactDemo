@@ -84,34 +84,36 @@ class Todolistctncomponent extends React.Component{
     }
     render(){
         return(
-            <div className = "drag-ctn">
-                {
-                    this.state.itemList.map((item,idx)=>{
-                        return <Draglinecomponent  lineWidth = '200' name = {item.get('name')} startLeft = '40' key = {item.get('name')} idx = {idx} value = {item.get('value')} changeValue = {(value,key)=>{this.changeValue(value,key)}}/>
-                    })
-                }
-                <p className = "result-panel"><span>今日得分:</span> <span>{this.state.result}</span></p>
-                <div className = "ipt-panel">
-                    <label htmlFor="ipt-tip" className = "tip-label">写一点感想</label>
-                    <input type="text" id = "ipt-tip" className = "ipt-tip" value = {this.state.tips} onChange = {(e)=>{this.setState({tips : e.target.value})}}/>
-                </div>
-                <Btncomponent Model = 'div' Click = {(e)=>{this._btnClickHandle(e)}} name = "提交" />
-                <div className = "emotion-panel">
+            <div>
+                <div className = "drag-ctn">
                     {
-                        this.state.dataList.map((item,idx)=>{
-                            if(item == null)return;
-                            return (
-                                <Showemotioncomponent key = {item.get('moment')}
-                                    value = {item.get('value')} 
-                                    tips = {item.get('tips')} 
-                                    idx = {idx} 
-                                    delete = {(idx)=>{this.deleteDataItem(idx)}}
-                                    _changeHandle = {(idx)=>this.changeDataItemValue(idx)} 
-                                />
-                            )
+                        this.state.itemList.map((item,idx)=>{
+                            return <Draglinecomponent  lineWidth = '200' name = {item.get('name')} startLeft = '40' key = {item.get('name')} idx = {idx} value = {item.get('value')} changeValue = {(value,key)=>{this.changeValue(value,key)}}/>
                         })
                     }
+                    <p className = "result-panel"><span>今日得分:</span> <span>{this.state.result}</span></p>
+                    <div className = "ipt-panel">
+                        <label htmlFor="ipt-tip" className = "tip-label">写一点感想</label>
+                        <input type="text" id = "ipt-tip" className = "ipt-tip" value = {this.state.tips} onChange = {(e)=>{this.setState({tips : e.target.value})}}/>
+                    </div>
+                    <Btncomponent Model = 'div' Click = {(e)=>{this._btnClickHandle(e)}} name = "提交" />
+                    <div className = "emotion-panel">
+                        {
+                            this.state.dataList.map((item,idx)=>{
+                                if(item == null)return;
+                                return (
+                                    <Showemotioncomponent key = {item.get('moment')}
+                                        value = {item.get('value')} 
+                                        tips = {item.get('tips')} 
+                                        idx = {idx} 
+                                        delete = {(idx)=>{this.deleteDataItem(idx)}}
+                                        _changeHandle = {(idx)=>this.changeDataItemValue(idx)} 
+                                    />
+                                )
+                            })
+                        }
                 </div>
+            </div>
             </div>
         )
     }
