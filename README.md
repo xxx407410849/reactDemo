@@ -16,6 +16,8 @@ React webpack immutable.js React-router React-loadable
 
 - 心情记录小应用(已完成,其实该用redux的,数据太多了,注意样式选择是有错的,显示数据区应使用```<li>```标签)
 
+- 按需加载与简易面包屑 导航栏 (react-router 应用)
+
 ## 用法
 
 - 扒下来 ```npm install```
