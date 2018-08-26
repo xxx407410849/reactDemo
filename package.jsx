@@ -78,7 +78,7 @@ ReactDOM.render(
     <BrowserRouter basename = "/dist/view/index.html">
     <div>
         <Route path = "/" component = {Demolist} />
-        <Route path = "/emotionList" component = {Breadcrumb}></Route>
+        <Route path = "/emotionList" component = {Breadcrumb} />
         <Switch>  
             <Route exact path = "/code" component = {Codectncomponent}/>
             <Route exact path = "/checkbox" component = {Checkboxcomponent}/>

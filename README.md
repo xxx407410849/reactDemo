@@ -8,6 +8,8 @@
 
 React webpack immutable.js React-router React-loadable
 
+Redux redux-immutable
+
 现包括
 
 - 模态框(登陆界面)
@@ -17,6 +19,8 @@ React webpack immutable.js React-router React-loadable
 - 心情记录小应用(已完成,其实该用redux的,数据太多了,注意样式选择是有错的,显示数据区应使用```<li>```标签)
 
 - 按需加载与简易面包屑 导航栏 (react-router 应用)
+
+- 复写心情应用(Redux+immutable实现，未挂载)
 
 ## 用法
 

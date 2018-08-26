@@ -13,7 +13,8 @@ module.exports = {
     entry: path.resolve(__dirname, './package.jsx'),
     devtool: 'inline-source-map',
     devServer: {
-        port: 8086
+        port: 8086,
+        historyApiFallback : true
     },
     output: {
         path: path.resolve(__dirname, 'dist'),

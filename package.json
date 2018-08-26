@@ -43,9 +43,14 @@
     "koa2": "^2.0.0-alpha.7",
     "less": "^3.8.1",
     "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-immutable-proptypes": "^2.1.0",
+    "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
+    "redux-immutable": "^4.0.0"
   }
 }
