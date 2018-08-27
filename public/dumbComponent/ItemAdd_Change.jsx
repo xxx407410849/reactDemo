@@ -1,7 +1,9 @@
 import React from 'react'
-import Btncomponent from '../js/btn'
-import ShowEmotionListComponent from './ShowEmotionList.jsx'
+import Btncomponent from '../js/btn.jsx'
 import Draglinecomponent from '../js/DragComponent.jsx'
+import ItemList from '../containerComponent/mapItemList.jsx'
+import moment from 'moment'
+import Immutabel from 'immutable'
 class Todolistctncomponent extends React.Component{
     constructor(props){
         super(props);
@@ -40,7 +42,7 @@ class Todolistctncomponent extends React.Component{
     _btnClickHandle(e){
         let valueList = Immutabel.fromJS([]);
         this.state.dataList.forEach((item)=>{
-            valueList.push(Immutabel.fromJS({value : item.get('value')}));
+            valueList = valueList.push(Immutabel.fromJS({value : item.get('value')}));
         });
         let Item = Immutabel.fromJS({
             value : this.state.result,
@@ -63,15 +65,16 @@ class Todolistctncomponent extends React.Component{
     }
 
     changeBtnInfo(id){
-        let item = this.props.itemList.map((item)=>{
-            if(item.get('id') === id) return item; 
+        let $item;
+        this.props.itemList.map((item)=>{
+            if(item.get('id') === id) $item = item;
         });
-        let newItemList = item.getIn(['item','valueList']);
-
+        let newItemList = $item.getIn(['item','valueList']);
+        console.log(newItemList);
         this.setState({
             dataList : this.state.dataList.mergeDeep(newItemList),
-            result : item.getIn(['item','value']),
-            tips : item.getIn(['item','tips']),
+            result : $item.getIn(['item','value']),
+            tips : $item.getIn(['item','tips']),
             changeInfo : {
                 id : id,
                 isChange : true
@@ -95,7 +98,7 @@ class Todolistctncomponent extends React.Component{
                     </div>
                     <Btncomponent Model = 'div' Click = {(e)=>{this._btnClickHandle(e)}} name = "提交" />
                     <div className = "emotion-panel">
-                        <ShowEmotionListComponent changeItemInfo = {(id)=>{this.changeBtnInfo(id)}}/>
+                        <ItemList changeItemInfo = {(id)=>{this.changeBtnInfo(id)}}/>
                     </div>
                 </div>
             </div>

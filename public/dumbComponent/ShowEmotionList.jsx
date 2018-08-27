@@ -7,15 +7,17 @@ class ShowEmotionListComponent extends React.Component{
         super(props)
     }
     render(){
+        console.log(this.props);
         return (
-            this.props.itemList.map((item,idx)=>{
-                <Showemotioncomponent key = {item.getIn(['item','moment'])}
+            this.props.itemList.map((item)=>{
+               return ( <Showemotioncomponent key = {item.get('id')}
                 value = {item.getIn(['item','value'])} 
                 tips = {item.getIn(['item','tips'])} 
                 id = {item.get('id')} 
                 deleteItem = {(id)=>{this.props.deleteItem(id)}}
-                changeItem = {(id)=>this.props.changeItem(id)}
+                changeItem = {(id)=>this.props.changeItemInfo(id)}
                 />
+               )
             })
         )
     }

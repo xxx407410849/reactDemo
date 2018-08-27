@@ -1,5 +1,5 @@
 import React from 'react'
-import Btncomponent from '../js/btn'
+import Btncomponent from '../js/btn.jsx'
 
 class Showemotioncomponent extends React.PureComponent{
     constructor(props){
@@ -11,7 +11,7 @@ class Showemotioncomponent extends React.PureComponent{
             <span>{"分数: "+ this.props.value}</span>
             <span>{"Tips： " + this.props.tips}</span>
             <Btncomponent Click =  {(e)=>{this.props.deleteItem(this.props.id)}} name = "删除" Model = 'span'/>
-            <Btncomponent Click = {(e)=>{this.props.changeItem(this.props.id); this.props.changeItemInfo(this.props.id)}} name = "修改" Model = 'span' />
+            <Btncomponent Click = {(e)=>{this.props.changeItem(this.props.id); this.props.changeItem(this.props.id)}} name = "修改" Model = 'span' />
             </div>
         )
     }
