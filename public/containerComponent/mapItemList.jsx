@@ -3,19 +3,19 @@ import {deleteItem,changeItem} from '../action/TodoListAction.jsx'
 import ShowEmotionListComponent from '../dumbComponent/ShowEmotionList.jsx'
 const mapStateToProps = (state) => {
     return {
-        itemList : state.get('itemList')
+        itemList : state.get('Items')
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        deleteItem : dispatch(deleteItem(id)),
-        changeItem : dispatch(changeItem(id))
+        deleteItem : (id) => dispatch(deleteItem(id)),
+        changeItem : (id) => dispatch(changeItem(id))
     }
 }
 
-const itemList = connect(
+const ItemList = connect(
     mapStateToProps,
     mapDispatchToProps
 )(ShowEmotionListComponent)
 
-module.exports = itemList
+module.exports = ItemList

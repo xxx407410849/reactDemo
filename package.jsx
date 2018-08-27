@@ -1,9 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Route , Link ,BrowserRouter, Switch ,withRouter} from 'react-router-dom';
+import {Route , Link ,BrowserRouter, Switch} from 'react-router-dom';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import App from './public/reducer/TodoListReducer.jsx';
+import combineReducers from 'redux-immutable';
 import Loadable from 'react-loadable';
-import Immutabel from 'immutable';
+import Immutable from 'immutable';
 import './public/less/index.less';
+
+const initialState = Immutable.fromJS({});
+let store = createStore(App,initialState);
+
+const unsubscribe = store.subscribe(()=>{
+    console.log(store.getState().get('Items'))
+})
 
 const MyLoadingComponent = ({ isLoading, error }) => {
     if (isLoading) {
@@ -35,12 +46,27 @@ const Breadcrumbcomponet = Loadable({
     loading: MyLoadingComponent
 })
 
+const Appcomponent = Loadable({
+    loader: () => import('./public/entry/TodoListAppEntry.jsx'),
+    loading: MyLoadingComponent
+})
+
+class AppReduxEntry extends React.Component{
+    render(){
+        return (
+        <Provider store = {store}>
+            <Appcomponent />
+        </Provider>
+        )
+    }
+}
+
 class Breadcrumb extends React.Component{
     constructor(props){
         super(props);
     }
     render(){
-        let Breadcrumboption = Immutabel.fromJS([{
+        let Breadcrumboption = Immutable.fromJS([{
             name : 'Emotioncontrol',
             link : '/emotionList',
             state : null
@@ -67,6 +93,7 @@ class Demolist extends React.Component{
                 <li><Link to = "/code">code</Link></li>
                 <li><Link to = "/checkbox">checkbox</Link></li>
                 <li><Link to = "/emotionList">Emotion</Link></li>
+                <li><Link to = "/emotionListRedux">Emotion-redux</Link></li>
             </ul>
             </div>
         )
@@ -83,6 +110,7 @@ ReactDOM.render(
             <Route exact path = "/code" component = {Codectncomponent}/>
             <Route exact path = "/checkbox" component = {Checkboxcomponent}/>
             <Route exact path = "/emotionList" component = {Todolistctncomponent} />
+            <Route exact path = "/emotionListRedux" component = {AppReduxEntry} />
         </Switch>
     </div>
     </BrowserRouter>,
