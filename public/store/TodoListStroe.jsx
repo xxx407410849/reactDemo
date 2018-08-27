@@ -3,7 +3,6 @@ import App from '../reducer/TodoListReducer.jsx'
 import Immatable from 'immutable'
 let store = createStore(App,Immatable.fromJS({}));
 
-import {addItem,deleteItem,changeItem} from '../action/TodoListAction.jsx'
 
 
 console.log(store.getState());

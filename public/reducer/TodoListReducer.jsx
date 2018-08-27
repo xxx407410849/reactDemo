@@ -11,40 +11,60 @@ const Items = (state = Immutable.fromJS([]) , action) => {
     switch(action.type){
         case DELETE_ITEM :
             {
-                state.get('itemList').map((item,idx)=>{
+                let index;
+                state.map((item,idx)=>{
                     if(item.get('id') === action.id){
-                        return state.deleteIn(['itemList',idx]);
+                        index = idx;
                     }
                 });
-                return state
+                return state.remove(index);
             }
         case CHANGE_ITEM : 
-            return state.get('itemList').map((item,idx)=>{
-                if(item.get('id') === action.id){
-                    return state.setIn(['itemList',idx,'isChange'] , !(state.getIn(['itemList',idx,'isChange'])) )
-                }
-            })
+            {
+                let index;
+                state.map((item,idx)=>{
+                    if(item.get('id') === action.id){
+                        index = idx;
+                    }
+                })
+                return state.setIn([index,'isChange'] , true);
+            }
         case ADD_ITEM : 
             {
-                let itemList = state.get('itemList');
-                itemList.push(Immutable.fromJS({
+                return state.push(Immutable.fromJS({
                     id : action.id,
                     item : action.item,
                     isChange : action.isChange
                 }))
-                return state.set('itemList',itemList);
             }
         case CHANGE_ITEM_DATA :
-            return state.get('itemList').map((item,idx)=>{
-                if(item.get('id') === action.id){
-                    return state.setIn(['itemList',idx],action.item)
-                }
-            })
+            {
+                let index;
+                state.map((item,idx)=>{
+                    if(item.get('id') === action.id){
+                        index = idx
+                    }
+                });
+                return state.set(index,Immutable.fromJS({
+                    id : action.id,
+                    item : action.item,
+                    isChange : false
+                }))
+            }
+
         default :
             return state
     }
 }
 
-export const App = combineReducers({
-    itemList : Items,
+/*const App = (state = Immutable.fromJS({}),action) => {
+    return {
+        itemList : Items(state,action)
+    }
+}*/
+
+const App = combineReducers({
+    Items,
 })
+
+module.exports = App;
